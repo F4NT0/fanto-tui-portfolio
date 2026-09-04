@@ -1,6 +1,8 @@
 ---
 import { PORTFOLIO_DATA } from "../data/portfolio";
 import { getCurrentLanguage, getTranslations, type Language } from "../i18n";
+import Image from "astro:assets";
+import me3Image from "../images/me3.png?url";
 ---
 
 <div id="view-cli" class="hidden flex flex-col flex-1 font-mono text-xs md:text-sm">
@@ -353,7 +355,7 @@ import { getCurrentLanguage, getTranslations, type Language } from "../i18n";
         <div class="border border-[var(--border-color)] bg-[var(--bg-card)] p-4 my-2 font-mono text-xs space-y-3">
           <div class="text-[var(--fg-bright)] font-bold text-sm border-b border-[var(--border-color)] pb-2">📄 ABOUT ME // ${developer.name}</div>
           <div class="flex items-start gap-4">
-            <img src="/me3.png" alt="${developer.name}" class="w-32 h-32 rounded border border-[var(--border-color)] object-cover" />
+            <img src={me3Image} alt="${developer.name}" class="w-32 h-32 rounded border border-[var(--border-color)] object-cover" />
             <div class="flex-1 space-y-2">
               <p class="text-[var(--fg-main)] leading-relaxed">${t.developer.bio}</p>
               <div class="text-[var(--fg-dim)] italic text-xs">${t.developer.quote}</div>
@@ -428,7 +430,7 @@ import { getCurrentLanguage, getTranslations, type Language } from "../i18n";
         <div class="border border-[var(--border-color)] bg-[var(--bg-card)] p-4 my-2 font-mono text-xs space-y-3">
           <div class="text-[var(--fg-bright)] font-bold text-sm border-b border-[var(--border-color)] pb-2">📄 ABOUT ME // ${developer.name}</div>
           <div class="flex items-start gap-4">
-            <img src="/me3.png" alt="${developer.name}" class="w-32 h-32 rounded border border-[var(--border-color)] object-cover" />
+            <img src={me3Image} alt="${developer.name}" class="w-32 h-32 rounded border border-[var(--border-color)] object-cover" />
             <div class="flex-1 space-y-2">
               <p class="text-[var(--fg-main)] leading-relaxed">${t.developer.bio}</p>
               <div class="text-[var(--fg-dim)] italic text-xs">${t.developer.quote}</div>
