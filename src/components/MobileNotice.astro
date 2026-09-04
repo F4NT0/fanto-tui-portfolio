@@ -1,5 +1,5 @@
 ---
-
+import { getCurrentLanguage, getTranslations, type Language } from "../i18n";
 ---
 
 <div
@@ -9,7 +9,7 @@
   <div class="flex items-start justify-between gap-2">
     <div class="flex items-center gap-2 font-bold text-yellow-400">
       <span class="animate-pulse">⚠️</span>
-      <span>[DISPLAY_NOTICE]: BEST VIEWED ON DESKTOP / PC</span>
+      <span id="mobile-notice-title">[DISPLAY_NOTICE]: BEST VIEWED ON DESKTOP / PC</span>
     </div>
     <button
       id="dismiss-mobile-notice"
@@ -19,10 +19,9 @@
     </button>
   </div>
 
-  <p class="mt-1.5 text-yellow-200/90 text-[11px] leading-relaxed">
-    For the full interactive CRT screen, sound synthesis, and multi-window
-    experience, we recommend viewing this TUI portfolio on a laptop or desktop
-    computer.
+  <p class="mt-1.5 text-yellow-200/90 text-[11px] leading-relaxed" id="mobile-notice-message">
+    For the full interactive multi-window experience, we recommend viewing this
+    TUI portfolio on a laptop or desktop computer.
   </p>
 </div>
 
@@ -40,6 +39,26 @@
       localStorage.setItem("tui_mobile_dismissed", "true");
     });
 
+    // Language update function
+    function updateMobileTranslations(lang: Language) {
+      const t = getTranslations(lang);
+      
+      const titleEl = document.getElementById("mobile-notice-title");
+      const messageEl = document.getElementById("mobile-notice-message");
+      
+      if (titleEl) titleEl.textContent = t.mobile.title;
+      if (messageEl) messageEl.textContent = t.mobile.message;
+    }
+    
+    // Listen for language changes
+    window.addEventListener('languageChange', (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      updateMobileTranslations(detail.lang);
+    });
+    
+    // Initialize with current language
+    updateMobileTranslations(getCurrentLanguage());
+
     function checkMobileConsoleWarning() {
       const isMobile =
         window.innerWidth < 768 ||
@@ -48,7 +67,7 @@
         );
       if (isMobile) {
         console.warn(
-          "%c ⚠️ [QUANTUM-TUI NOTICE]: MOBILE VIEWPORT DETECTED %c\nFor the optimal retro CRT monitor aesthetic, Web Audio keypress synthesis, and full CLI keyboard shortcuts, we recommend viewing on a Laptop/Desktop PC (width >= 768px).",
+          "%c ⚠️ [TUI PORTFOLIO NOTICE]: MOBILE VIEWPORT DETECTED %c\nFor the optimal experience and full CLI keyboard shortcuts, we recommend viewing on a Laptop/Desktop PC (width >= 768px).",
           "color: #ffb000; font-size: 13px; font-weight: bold; background: #140d04; padding: 4px 8px; border: 1px solid #ffb000; font-family: monospace;",
           "color: #00ff66; font-size: 11px; font-family: monospace; line-height: 1.5;",
         );

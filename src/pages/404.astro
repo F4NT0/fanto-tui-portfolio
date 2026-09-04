@@ -129,30 +129,23 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
 </Layout>
 
 <script>
-  import { playBeep, playErrorSound, playSuccessSound, playKeypressSound } from "../utils/sound";
-
   document.addEventListener("DOMContentLoaded", () => {
-    // 1. Play 404 Error Audio Feedback on Load
-    setTimeout(() => {
-      playErrorSound();
-    }, 200);
-
-    // 2. Display actual requested path
+    // 1. Display actual requested path
     const requestedPathEl = document.getElementById("requested-url-path");
     if (requestedPathEl) {
       requestedPathEl.textContent = window.location.pathname || "/unknown-route";
     }
 
-    // 3. Update current path in header if available
+    // 2. Update current path in header if available
     const headerPathEl = document.getElementById("current-path");
     if (headerPathEl) {
       headerPathEl.textContent = "~/404-error";
     }
 
-    // 4. Quick Action Button Event Handlers
+    // 3. Quick Action Button Event Handlers
     const btnHome = document.getElementById("btn-return-home");
     btnHome?.addEventListener("click", () => {
-      playSuccessSound();
+      // Sound removed
     });
 
     const btnMatrix = document.getElementById("btn-404-matrix");
@@ -160,7 +153,6 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
       const win = window as unknown as { toggleMatrix?: (f?: boolean) => void };
       if (win.toggleMatrix) {
         win.toggleMatrix();
-        playBeep(700, 0.08);
         const matrixContainer = document.getElementById("matrix-container");
         const isActive = matrixContainer && !matrixContainer.classList.contains("hidden");
         appendConsoleLog(
@@ -172,14 +164,13 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
 
     const btnReboot = document.getElementById("btn-404-reboot");
     btnReboot?.addEventListener("click", () => {
-      playErrorSound();
       appendConsoleLog("🔄 Rebooting virtual system... Redirecting home.", "text-yellow-400 font-bold");
       setTimeout(() => {
         window.location.href = "/";
       }, 1000);
     });
 
-    // 5. Interactive Console Logic
+    // 4. Interactive Console Logic
     const consoleOutput = document.getElementById("console-output");
     const consoleForm = document.getElementById("console-form") as HTMLFormElement;
     const consoleInput = document.getElementById("console-input") as HTMLInputElement;
@@ -193,10 +184,6 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
       consoleOutput.scrollTop = consoleOutput.scrollHeight;
     }
 
-    consoleInput?.addEventListener("keydown", () => {
-      playKeypressSound();
-    });
-
     consoleForm?.addEventListener("submit", (e) => {
       e.preventDefault();
       const rawCmd = consoleInput.value.trim();
@@ -209,7 +196,6 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
 
       switch (cmd) {
         case "help":
-          playBeep(600, 0.04);
           appendConsoleLog("Available commands:", "text-[var(--accent)] font-bold");
           appendConsoleLog("  <span class='text-[var(--fg-bright)] font-bold'>home / cd / exit</span>  - Return to home portfolio");
           appendConsoleLog("  <span class='text-[var(--fg-bright)] font-bold'>matrix</span>           - Toggle matrix digital rain");
@@ -222,7 +208,6 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
         case "exit":
         case "cd ~":
         case "cd /":
-          playSuccessSound();
           appendConsoleLog("🚀 Redirecting to root filesystem ~/portfolio...", "text-emerald-400 font-bold");
           setTimeout(() => {
             window.location.href = "/";
@@ -233,7 +218,6 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
           const win = window as unknown as { toggleMatrix?: (f?: boolean) => void };
           if (win.toggleMatrix) {
             win.toggleMatrix();
-            playBeep(700, 0.08);
             const matrixContainer = document.getElementById("matrix-container");
             const isActive = matrixContainer && !matrixContainer.classList.contains("hidden");
             appendConsoleLog(
@@ -245,7 +229,6 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
 
         case "reboot":
         case "panic":
-          playErrorSound();
           appendConsoleLog("💥 KERNEL RESET TRIGGERED...", "text-red-400 font-bold");
           setTimeout(() => {
             window.location.href = "/";
@@ -254,14 +237,12 @@ import { PORTFOLIO_DATA } from "../data/portfolio";
 
         case "clear":
         case "cls":
-          playBeep(450, 0.04);
           if (consoleOutput) {
             consoleOutput.innerHTML = "";
           }
           break;
 
         default:
-          playErrorSound();
           appendConsoleLog(
             `bash: command not found: <span class='text-red-400 font-bold'>${rawCmd}</span>. Type '<span class='text-[var(--accent)] font-bold'>home</span>' or '<span class='text-[var(--accent)] font-bold'>help</span>'.`,
             "text-red-300"

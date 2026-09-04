@@ -17,7 +17,6 @@
   --selection-bg: #00441b;
   --selection-fg: #00ff66;
   --status-bar-bg: #040905;
-  --scanline-opacity: 0.15;
 }
 
 [data-theme="amber"] {
@@ -121,73 +120,4 @@ body {
 ::selection {
   background: var(--selection-bg);
   color: var(--selection-fg);
-}
-
-@media (max-width: 767px) {
-  .crt-overlay {
-    display: none !important;
-  }
-}
-
-/* CRT Screen Effect Overlay */
-.crt-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, 0.75) 50%
-  ), linear-gradient(
-    90deg,
-    rgba(255, 0, 0, 0.06),
-    rgba(0, 255, 0, 0.02),
-    rgba(0, 0, 255, 0.06)
-  );
-  background-size: 100% 4px, 6px 100%;
-  opacity: var(--scanline-opacity);
-}
-
-.crt-vignette {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9998;
-  box-shadow: inset 0 0 120px rgba(0, 0, 0, var(--vignette-opacity, 0.65));
-}
-
-@keyframes crtFlicker {
-  0% {
-    opacity: 0.995;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  52% {
-    opacity: 0.96;
-  }
-
-  54% {
-    opacity: 1;
-  }
-
-  80% {
-    opacity: 0.99;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.crt-flicker {
-  animation: crtFlicker 0.15s infinite;
 }

@@ -1,0 +1,100 @@
+{
+  "welcome": {
+    "title": "WELCOME TO TERMINAL PORTFOLIO OF GABRIEL FANTO STUNDNER V2.0.3!",
+    "subtitle": "Type help to see available commands or click [#] TUI Portfolio for visual mode."
+  },
+  "header": {
+    "path": "~/portfolio",
+    "branch": "main*"
+  },
+  "cli": {
+    "placeholder": "Type 'about', 'skills', or 'collabs'...",
+    "prompt": "Type 'about', 'skills', or 'collabs' to explore content.",
+    "mode": "CLI",
+    "guiMode": "TUI"
+  },
+  "tabs": {
+    "cli": ">_ CLI Mode",
+    "gui": "[#] TUI Portfolio"
+  },
+  "buttons": {
+    "matrix": "⚡ Matrix",
+    "theme": "Theme"
+  },
+  "footer": {
+    "status": "STATUS 200 OK",
+    "utf8": "UTF-8",
+    "mode": "MODE",
+    "engine": "TUI_ENGINE v5.0"
+  },
+  "commands": {
+    "help": "List available commands",
+    "about": "Bio, background & location",
+    "skills": "Interactive proficiency meters",
+    "github": "Live GitHub profile metrics, stars & language stats",
+    "repos": "Explore featured repositories with stars & links",
+    "links": "Display quick links to LinkedIn, X (Twitter), GitHub & Email",
+    "spotify": "Live Spotify track & progress bar",
+    "matrix": "Toggle digital rain canvas animation",
+    "clear": "Clear terminal screen buffer",
+    "gui": "Switch layout mode"
+  },
+  "mobile": {
+    "title": "[DISPLAY_NOTICE]: BEST VIEWED ON DESKTOP / PC",
+    "message": "For the full interactive multi-window experience, we recommend viewing this TUI portfolio on a laptop or desktop computer."
+  },
+  "gui": {
+    "explorer": "📁 EXPLORER",
+    "contents": "CONTENTS",
+    "nav": {
+      "about": "bio.txt (About Me)",
+      "skills": "skills.sh (Skills)",
+      "github": "github.sh (GitHub Stats)",
+      "contact": "contact.txt (Contact)"
+    },
+    "contentSpec": "CONTENT SPEC",
+    "skillDomains": "Skill Domains:",
+    "experience": "Experience:",
+    "visitGithub": "Visit GitHub Profile",
+    "downloadCv": "Download Updated CV",
+    "aboutSection": {
+      "title": "📄 bio.txt - About Me",
+      "bio": "Bio",
+      "location": "Location",
+      "title_label": "Title"
+    },
+    "skillsSection": {
+      "title": "⚙️ skills.sh - Skills & Proficiency",
+      "proficiency": "Proficiency"
+    },
+    "githubSection": {
+      "title": "🐙 github.sh - GitHub Stats & Repositories",
+      "loading": "Loading GitHub data...",
+      "totalStars": "Total Stars",
+      "totalForks": "Total Forks",
+      "followers": "Followers",
+      "publicRepos": "Public Repos",
+      "topLanguages": "Top Languages",
+      "featuredRepos": "Featured Repositories"
+    },
+    "contactSection": {
+      "title": "✉️ contact.txt - Contact Form",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "sent": "Message Sent!",
+      "error": "Error sending message"
+    }
+  },
+  "developer": {
+    "bio": "Software Engineer with 6+ years of experience building scalable solutions for the financial and management sectors. Passionate about Linux, automation, distributed architectures, and terminal productivity. Enthusiast of TUI tools, modern infrastructure, and the \"keyboard-driven\" philosophy, transforming complexity into efficient and reliable systems.",
+    "quote": "\"Don't replace your mental intelligence with something you have to pay to use\" - Gabriel Fanto",
+    "status": " AVAILABLE FOR PROJECTS!",
+    "location": "Porto Alegre, RS",
+    "experience": "6+ Years",
+    "engineeringFocus": "Engineering Focus",
+    "focusAreas": "Software Architecture, SRE, AI"
+  }
+}

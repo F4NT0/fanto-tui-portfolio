@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Dark CRT Container -->
+  <!-- Dark Container -->
   <rect width="64" height="64" rx="12" fill="#0a120b" stroke="#00ff66" stroke-width="2.5"/>
   
   <!-- Window Header Bar -->

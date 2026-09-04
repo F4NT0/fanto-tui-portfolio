@@ -1,5 +1,5 @@
 ---
-import { ALL_THEMES } from "../config/themeConfig";
+import { applyTheme } from '../config/themeConfig';
 ---
 
 <div
@@ -9,27 +9,10 @@ import { ALL_THEMES } from "../config/themeConfig";
     class="bg-[var(--status-bar-bg)] border-b border-[var(--border-color)] px-3 py-2 flex flex-wrap items-center justify-between gap-2 select-none"
   >
     <div class="flex items-center gap-3">
-      <div class="flex items-center gap-1.5">
-        <span
-          id="win-close"
-          title="Reset Terminal"
-          class="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 cursor-pointer inline-block border border-red-700 transition-colors"
-        ></span>
-        <span
-          id="win-min"
-          title="Toggle Compact View"
-          class="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 cursor-pointer inline-block border border-yellow-700 transition-colors"
-        ></span>
-        <span
-          id="win-max"
-          title="Full Width"
-          class="w-3 h-3 rounded-full bg-emerald-500/80 hover:bg-emerald-500 cursor-pointer inline-block border border-emerald-700 transition-colors"
-        ></span>
-      </div>
       <div
         class="text-xs font-mono font-bold text-[var(--fg-bright)] flex items-center gap-1.5"
       >
-        <span class="text-[var(--fg-dim)]">alex@quantum-box:</span>
+        <span class="text-[var(--fg-dim)]">fanto@matrix:</span>
         <span id="current-path" class="text-[var(--accent)] font-mono"
           >~/portfolio</span
         >
@@ -45,76 +28,25 @@ import { ALL_THEMES } from "../config/themeConfig";
     >
       <button
         id="tab-cli"
-        class="hidden md:inline-block px-3 py-1 font-bold text-[var(--fg-bright)] bg-[var(--border-color)] border-b-2 border-[var(--accent)] cursor-pointer transition-colors"
+        class="hidden md:inline-block px-3 py-1 font-bold text-[var(--fg-dim)] hover:text-[var(--fg-bright)] cursor-pointer transition-colors"
       >
         >_ CLI Mode
       </button>
       <button
         id="tab-gui"
-        class="px-3 py-1 font-bold text-[var(--fg-dim)] hover:text-[var(--fg-bright)] cursor-pointer transition-colors"
+        class="px-3 py-1 font-bold text-[var(--fg-bright)] bg-[var(--border-color)] border-b-2 border-[var(--accent)] cursor-pointer transition-colors"
       >
-        [#] GUI Dashboard
+        [#] TUI Portfólio
       </button>
     </div>
 
     <div class="flex items-center gap-2 text-xs font-mono">
-      <div class="relative group">
-        <select
-          id="theme-select"
-          aria-label="Select Color Theme"
-          class="bg-[var(--bg-card)] text-[var(--fg-bright)] border border-[var(--border-color)] px-2 py-1 text-xs font-mono cursor-pointer focus:outline-none focus:border-[var(--border-active)]"
-        >
-          {
-            ALL_THEMES.map((theme) => (
-              <option value={theme.id}>
-                {theme.emoji} {theme.name}
-              </option>
-            ))
-          }
-        </select>
-      </div>
-
       <button
-        id="toggle-crt-btn"
-        aria-label="Toggle CRT Effect"
-        class="hidden md:flex px-2 py-1 border border-[var(--border-color)] bg-[var(--bg-card)] hover:border-[var(--border-active)] text-[var(--fg-bright)] cursor-pointer items-center gap-1"
+        id="lang-toggle-btn"
+        title="Toggle Language / Alternar Idioma"
+        class="px-2 py-1 border border-[var(--border-color)] bg-[var(--bg-card)] hover:border-[var(--accent)] text-[var(--fg-bright)] cursor-pointer font-bold"
       >
-        <span id="crt-indicator" class="w-2 h-2 rounded-full bg-emerald-400"
-        ></span>
-        <span class="hidden sm:inline">CRT</span>
-      </button>
-
-      <button
-        id="toggle-sfx-btn"
-        aria-label="Toggle Audio Sound Effects"
-        class="px-2 py-1 border border-[var(--border-color)] bg-[var(--bg-card)] hover:border-[var(--border-active)] text-[var(--fg-bright)] cursor-pointer flex items-center gap-1"
-      >
-        <span id="sfx-icon">🔊</span>
-        <span id="sfx-status" class="hidden sm:inline">SFX</span>
-      </button>
-
-      <button
-        id="trigger-radio-btn"
-        title="Open Retro Lo-Fi & Chiptune Radio Player"
-        class="hidden sm:flex px-2 py-1 border border-[var(--border-color)] bg-[var(--bg-card)] hover:border-[var(--accent)] text-[var(--accent)] font-bold cursor-pointer items-center gap-1"
-      >
-        <span>📻</span> <span class="hidden md:inline">Radio</span>
-      </button>
-
-      <button
-        id="trigger-pong-btn"
-        title="Play Retro Pong Arcade Game"
-        class="hidden sm:flex px-2 py-1 border border-[var(--border-color)] bg-[var(--bg-card)] hover:border-[var(--accent)] text-[var(--accent)] font-bold cursor-pointer items-center gap-1"
-      >
-        <span>🕹️</span> <span class="hidden md:inline">Pong</span>
-      </button>
-
-      <button
-        id="trigger-snake-btn"
-        title="Play Retro Snake Arcade Game"
-        class="hidden sm:flex px-2 py-1 border border-[var(--border-color)] bg-[var(--bg-card)] hover:border-[var(--accent)] text-[var(--accent)] font-bold cursor-pointer items-center gap-1"
-      >
-        <span>🐍</span> <span class="hidden md:inline">Snake</span>
+        <span id="lang-text">🇧🇷</span>
       </button>
 
       <button
@@ -137,23 +69,12 @@ import { ALL_THEMES } from "../config/themeConfig";
     <div class="flex items-center gap-4">
       <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        STATUS 200 OK
+        <span id="footer-status">STATUS 200 OK</span>
       </span>
       <span class="hidden sm:inline">UTF-8</span>
       <span class="hidden md:inline"
-        >MODE: <span id="mode-status-text">CLI</span></span
+        ><span id="footer-mode">MODE:</span> <span id="mode-status-text">TUI</span></span
       >
-    </div>
-
-    <!-- Live Status Bar Radio Ticker -->
-    <div
-      id="status-radio-ticker"
-      title="Click to toggle Lo-Fi Radio Player"
-      class="hidden md:flex items-center gap-2 cursor-pointer text-[var(--fg-bright)] hover:text-[var(--accent)] transition-colors px-2 py-0.5 border border-transparent hover:border-[var(--border-color)]"
-    >
-      <span id="status-radio-icon">📻</span>
-      <span id="status-radio-title" class="truncate max-w-[180px]">RADIO: OFF</span>
-      <span id="status-radio-meter" class="text-[var(--accent)] font-mono font-bold"></span>
     </div>
 
     <div class="flex items-center gap-4">
@@ -166,13 +87,8 @@ import { ALL_THEMES } from "../config/themeConfig";
 </div>
 
 <script>
-  import {
-    toggleSfx,
-    isSfxEnabled,
-    initSfxFromStorage,
-    playBeep,
-  } from "../utils/sound";
-  import { applyTheme, applyCRTConfig } from '../config/themeConfig';
+  import { applyTheme } from '../config/themeConfig';
+  import { getCurrentLanguage, setLanguage, getTranslations, type Language } from '../i18n';
 
   document.addEventListener("DOMContentLoaded", () => {
     const isMobile =
@@ -180,9 +96,6 @@ import { ALL_THEMES } from "../config/themeConfig";
       /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
         navigator.userAgent,
       );
-
-    initSfxFromStorage();
-    updateSfxUI();
 
     function updateClock() {
       const clockEl = document.getElementById("live-clock");
@@ -194,120 +107,49 @@ import { ALL_THEMES } from "../config/themeConfig";
     updateClock();
     setInterval(updateClock, 1000);
 
-    const themeSelect = document.getElementById(
-      "theme-select",
-    ) as HTMLSelectElement;
-    const savedTheme = localStorage.getItem("tui_theme") || "green";
-    if (themeSelect) {
-      themeSelect.value = savedTheme;
-      applyTheme(savedTheme);
+    // Apply monochrome theme by default
+    applyTheme("mono");
 
-      themeSelect.addEventListener("change", (e) => {
-        const val = (e.target as HTMLSelectElement).value;
-        applyTheme(val);
-        localStorage.setItem("tui_theme", val);
-        playBeep(600, 0.05);
-      });
-    }
-
-    const crtBtn = document.getElementById("toggle-crt-btn");
+    // Language toggle functionality
+    const langToggleBtn = document.getElementById("lang-toggle-btn");
+    const langText = document.getElementById("lang-text");
     
-    // Apply CRT config on load according to GLOBAL_CRT_CONFIG
-    applyCRTConfig();
-
-    crtBtn?.addEventListener("click", () => {
-      const currentOpacity = getComputedStyle(document.documentElement).getPropertyValue("--scanline-opacity").trim();
-      const currentlyOn = currentOpacity !== "0" && currentOpacity !== "";
-      applyCRTConfig({ enabled: !currentlyOn });
-      playBeep(450, 0.04);
-    });
-
-    const sfxBtn = document.getElementById("toggle-sfx-btn");
-    sfxBtn?.addEventListener("click", () => {
-      toggleSfx();
-      updateSfxUI();
-    });
-
-    function updateSfxUI() {
-      const enabled = isSfxEnabled();
-      const sfxIcon = document.getElementById("sfx-icon");
-      const sfxStatus = document.getElementById("sfx-status");
-      if (sfxIcon) sfxIcon.textContent = enabled ? "🔊" : "🔇";
-      if (sfxStatus) sfxStatus.textContent = enabled ? "SFX ON" : "SFX OFF";
+    function updateLanguageUI(lang: Language) {
+      const t = getTranslations(lang);
+      if (langText) {
+        langText.textContent = lang === 'pt' ? '🇧🇷' : '🇺🇸';
+      }
+      
+      // Update translatable elements
+      const tabCli = document.getElementById("tab-cli");
+      const tabGui = document.getElementById("tab-gui");
+      if (tabCli) tabCli.textContent = t.tabs.cli;
+      if (tabGui) tabGui.textContent = t.tabs.gui;
+      
+      const modeStatusText = document.getElementById("mode-status-text");
+      const footerStatus = document.getElementById("footer-status");
+      const footerMode = document.getElementById("footer-mode");
+      
+      if (modeStatusText) {
+        modeStatusText.textContent = t.cli.mode;
+      }
+      if (footerStatus) footerStatus.textContent = t.footer.status;
+      if (footerMode) footerMode.textContent = t.footer.mode;
+      
+      // Dispatch event for other components to update
+      window.dispatchEvent(new CustomEvent('languageChange', { detail: { lang, translations: t } }));
     }
-
-    document
-      .getElementById("trigger-radio-btn")
-      ?.addEventListener("click", () => {
-        const win = window as unknown as {
-          radioEngine?: { toggleModal: (f?: boolean) => void };
-        };
-        if (win.radioEngine) {
-          win.radioEngine.toggleModal(true);
-          playBeep(750, 0.05);
-        }
-      });
-
-    document
-      .getElementById("status-radio-ticker")
-      ?.addEventListener("click", () => {
-        const win = window as unknown as {
-          radioEngine?: { toggleModal: (f?: boolean) => void };
-        };
-        if (win.radioEngine) {
-          win.radioEngine.toggleModal(true);
-          playBeep(750, 0.05);
-        }
-      });
-
-    // Listen for live radio changes to update footer ticker
-    window.addEventListener("tui-radio-change", (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      const titleEl = document.getElementById("status-radio-title");
-      const iconEl = document.getElementById("status-radio-icon");
-      if (detail && detail.track) {
-        if (titleEl) {
-          titleEl.textContent = detail.isPlaying
-            ? `♪ ${detail.track.title.toUpperCase()}`
-            : `RADIO: PAUSED`;
-        }
-        if (iconEl) {
-          iconEl.textContent = detail.isPlaying ? "📻" : "📻";
-        }
-      }
+    
+    langToggleBtn?.addEventListener("click", () => {
+      const currentLang = getCurrentLanguage();
+      const newLang: Language = currentLang === 'pt' ? 'en' : 'pt';
+      setLanguage(newLang);
+      updateLanguageUI(newLang);
     });
-
-    window.addEventListener("tui-radio-viz", (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      const meterEl = document.getElementById("status-radio-meter");
-      if (meterEl && detail) {
-        meterEl.textContent = detail.isPlaying ? detail.ascii : "";
-      }
-    });
-
-    document
-      .getElementById("trigger-pong-btn")
-      ?.addEventListener("click", () => {
-        const win = window as unknown as {
-          togglePong?: (f?: boolean) => void;
-        };
-        if (win.togglePong) {
-          win.togglePong(true);
-          playBeep(880, 0.06, "triangle");
-        }
-      });
-
-    document
-      .getElementById("trigger-snake-btn")
-      ?.addEventListener("click", () => {
-        const win = window as unknown as {
-          toggleSnake?: (f?: boolean) => void;
-        };
-        if (win.toggleSnake) {
-          win.toggleSnake(true);
-          playBeep(820, 0.06, "triangle");
-        }
-      });
+    
+    // Initialize language on load
+    const currentLang = getCurrentLanguage();
+    updateLanguageUI(currentLang);
 
     document
       .getElementById("trigger-matrix-btn")
@@ -317,7 +159,6 @@ import { ALL_THEMES } from "../config/themeConfig";
         };
         if (win.toggleMatrix) {
           win.toggleMatrix(true);
-          playBeep(700, 0.08);
         }
       });
 
@@ -329,7 +170,6 @@ import { ALL_THEMES } from "../config/themeConfig";
 
     function switchMode(mode: "cli" | "gui") {
       const targetMode = isMobile ? "gui" : mode;
-      playBeep(targetMode === "cli" ? 500 : 700, 0.05);
 
       if (targetMode === "cli") {
         cliView?.classList.remove("hidden");
@@ -351,7 +191,10 @@ import { ALL_THEMES } from "../config/themeConfig";
         );
         tabGui?.classList.add("text-[var(--fg-dim)]");
 
-        if (modeStatusText) modeStatusText.textContent = "CLI";
+        if (modeStatusText) {
+          const t = getTranslations(getCurrentLanguage());
+          modeStatusText.textContent = t.cli.mode;
+        }
 
         const cliInput = document.getElementById(
           "cli-input",
@@ -377,13 +220,15 @@ import { ALL_THEMES } from "../config/themeConfig";
         );
         tabCli?.classList.add("text-[var(--fg-dim)]");
 
-        if (modeStatusText) modeStatusText.textContent = "GUI";
+        if (modeStatusText) {
+          const t = getTranslations(getCurrentLanguage());
+          modeStatusText.textContent = t.cli.guiMode;
+        }
       }
     }
 
-    if (isMobile) {
-      switchMode("gui");
-    }
+    // Start in GUI mode by default
+    switchMode("gui");
 
     tabCli?.addEventListener("click", () => switchMode("cli"));
     tabGui?.addEventListener("click", () => switchMode("gui"));

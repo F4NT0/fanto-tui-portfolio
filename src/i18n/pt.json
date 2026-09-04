@@ -1,0 +1,100 @@
+{
+  "welcome": {
+    "title": "BEM VINDO AO TERMINAL PORTFOLIO DE GABRIEL FANTO STUNDNER V2.0.3!",
+    "subtitle": "Digite help para ver os comandos disponíveis ou clique em [#] TUI Portfólio para o modo visual."
+  },
+  "header": {
+    "path": "~/portfolio",
+    "branch": "main*"
+  },
+  "cli": {
+    "placeholder": "Digite 'about', 'skills', ou 'collabs'...",
+    "prompt": "Digite 'about', 'skills', ou 'collabs' para explorar o conteúdo.",
+    "mode": "CLI",
+    "guiMode": "TUI"
+  },
+  "tabs": {
+    "cli": ">_ CLI Mode",
+    "gui": "[#] TUI Portfólio"
+  },
+  "buttons": {
+    "matrix": "⚡ Matrix",
+    "theme": "Tema"
+  },
+  "footer": {
+    "status": "STATUS 200 OK",
+    "utf8": "UTF-8",
+    "mode": "MODO",
+    "engine": "TUI_ENGINE v5.0"
+  },
+  "commands": {
+    "help": "Listar comandos disponíveis",
+    "about": "Biografia, localização e contato",
+    "skills": "Medidores de proficiência interativos",
+    "github": "Métricas do perfil GitHub, estrelas e linguagens",
+    "repos": "Explorar repositórios com estrelas e links",
+    "links": "Links para LinkedIn, X (Twitter), GitHub e Email",
+    "spotify": "Música atual do Spotify e barra de progresso",
+    "matrix": "Alternar animação de chuva digital",
+    "clear": "Limpar buffer do terminal",
+    "gui": "Alternar modo de layout"
+  },
+  "mobile": {
+    "title": "[AVISO_DE_EXIBIÇÃO]: MELHOR VISUALIZADO EM DESKTOP / PC",
+    "message": "Para a experiência completa multi-janela, recomendamos visualizar este portfólio TUI em um laptop ou desktop."
+  },
+  "gui": {
+    "explorer": "📁 EXPLORADOR",
+    "contents": "CONTEÚDO",
+    "nav": {
+      "about": "bio.txt (Sobre Mim)",
+      "skills": "skills.sh (Habilidades)",
+      "github": "github.sh (Stats GitHub)",
+      "contact": "contact.txt (Contato)"
+    },
+    "contentSpec": "ESPECIFICAÇÃO DE CONTEÚDO",
+    "skillDomains": "Domínios de Habilidade:",
+    "experience": "Experiência:",
+    "visitGithub": "Visitar Perfil GitHub",
+    "downloadCv": "Baixar currículo atualizado",
+    "aboutSection": {
+      "title": "📄 bio.txt - Sobre Mim",
+      "bio": "Biografia",
+      "location": "Localização",
+      "title_label": "Título"
+    },
+    "skillsSection": {
+      "title": "⚙️ skills.sh - Habilidades e Proficiência",
+      "proficiency": "Proficiência"
+    },
+    "githubSection": {
+      "title": "🐙 github.sh - Stats GitHub e Repositórios",
+      "loading": "Carregando dados do GitHub...",
+      "totalStars": "Estrelas Totais",
+      "totalForks": "Forks Totais",
+      "followers": "Seguidores",
+      "publicRepos": "Repos Públicos",
+      "topLanguages": "Principais Linguagens",
+      "featuredRepos": "Repositórios em Destaque"
+    },
+    "contactSection": {
+      "title": "✉️ contact.txt - Formulário de Contato",
+      "name": "Nome",
+      "email": "Email",
+      "message": "Mensagem",
+      "send": "Enviar Mensagem",
+      "sending": "Enviando...",
+      "sent": "Mensagem Enviada!",
+      "error": "Erro ao enviar mensagem"
+    }
+  },
+  "developer": {
+    "bio": "Software Engineer com 6+ anos de experiência construindo soluções escaláveis para os setores financeiro e de gestão. Apaixonado por Linux, automação, arquiteturas distribuídas e produtividade via terminal. Entusiasta de ferramentas TUI, infraestrutura moderna e da filosofia \"keyboard-driven\", transformando complexidade em sistemas eficientes e confiáveis.",
+    "quote": "\"Não substitua a sua inteligência mental por algo que se deve pagar para usar\" - Gabriel Fanto",
+    "status": " DISPONÍVEL PARA PROJETOS!",
+    "location": "Porto Alegre, RS",
+    "experience": "6+ Anos",
+    "engineeringFocus": "Foco de estudo",
+    "focusAreas": "Arquitetura de Software, SRE, IA"
+  }
+}

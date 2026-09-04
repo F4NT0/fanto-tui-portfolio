@@ -1,15 +1,14 @@
 ---
 import { PORTFOLIO_DATA } from "../data/portfolio";
 import Neofetch from "./Neofetch.astro";
-import SpotifyWidget from "./SpotifyWidget.astro";
-import GamesWidget from "./GamesWidget.astro";
+import { getCurrentLanguage, getTranslations, type Language } from "../i18n";
 
-const { developer, skills, collabs } = PORTFOLIO_DATA;
+const { developer, skills, collabs } = PORTFOLIO_DATA; // collabs commented out - not currently used
 ---
 
 <div
   id="view-gui"
-  class="hidden flex flex-col space-y-6 font-mono text-xs md:text-sm"
+  class="flex flex-col space-y-6 font-mono text-xs md:text-sm"
 >
   <!-- Top Neofetch System Summary Card -->
   <Neofetch />
@@ -23,8 +22,8 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
       <div
         class="text-[var(--accent)] font-bold border-b border-[var(--border-color)] pb-2 flex items-center justify-between"
       >
-        <span>📁 EXPLORER</span>
-        <span class="text-[10px] text-[var(--fg-dim)]">CONTENTS</span>
+        <span id="gui-explorer">📁 EXPLORER</span>
+        <span class="text-[10px] text-[var(--fg-dim)]" id="gui-contents">CONTENTS</span>
       </div>
 
       <nav class="space-y-1 font-mono text-xs">
@@ -32,60 +31,36 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
           href="#gui-about"
           class="gui-nav-item flex items-center gap-2 p-1.5 hover:bg-[var(--border-color)] text-[var(--fg-bright)] font-bold transition-colors"
         >
-          <span class="text-yellow-400">📄</span> bio.txt (About Me)
+          <span class="text-yellow-400">📄</span> <span id="gui-nav-about">bio.txt (About Me)</span>
         </a>
         <a
           href="#gui-skills"
           class="gui-nav-item flex items-center gap-2 p-1.5 hover:bg-[var(--border-color)] text-[var(--fg-bright)] transition-colors"
         >
-          <span class="text-emerald-400">⚙️</span> skills.sh (Skills)
+          <span class="text-emerald-400">⚙️</span> <span id="gui-nav-skills">skills.sh (Skills)</span>
         </a>
+        <!-- Collabs navigation commented out - not currently used
         <a
           href="#gui-collabs"
           class="gui-nav-item flex items-center gap-2 p-1.5 hover:bg-[var(--border-color)] text-[var(--fg-bright)] transition-colors"
         >
           <span class="text-purple-400">🤝</span> collabs.md (Collabs)
         </a>
+        -->
         <a
           href="#gui-github"
           class="gui-nav-item flex items-center gap-2 p-1.5 hover:bg-[var(--border-color)] text-[var(--fg-bright)] transition-colors"
         >
-          <span class="text-sky-400">🐙</span> github.sh (GitHub Stats)
+          <span class="text-sky-400">🐙</span> <span id="gui-nav-github">github.sh (GitHub Stats)</span>
         </a>
         <a
           href="#gui-contact"
           class="gui-nav-item flex items-center gap-2 p-1.5 hover:bg-[var(--border-color)] text-[var(--fg-bright)] transition-colors"
         >
-          <span class="text-red-400">✉️</span> contact.txt (Contact)
+          <span class="text-red-400">✉️</span> <span id="gui-nav-contact">contact.txt (Contact)</span>
         </a>
-        <button
-          type="button"
-          id="gui-launch-pong"
-          class="w-full text-left gui-nav-item flex items-center gap-2 p-1.5 hover:bg-[var(--border-color)] text-[var(--accent)] font-bold transition-colors cursor-pointer border border-dashed border-[var(--border-color)] mt-1"
-        >
-          <span>🕹️</span> pong.sh (Pong Arcade)
-        </button>
-        <button
-          type="button"
-          id="gui-launch-snake"
-          class="w-full text-left gui-nav-item flex items-center gap-2 p-1.5 hover:bg-[var(--border-color)] text-emerald-400 font-bold transition-colors cursor-pointer border border-dashed border-[var(--border-color)] mt-1"
-        >
-          <span>🐍</span> snake.sh (Snake Arcade)
-        </button>
-        <button
-          type="button"
-          id="gui-launch-radio"
-          class="w-full text-left gui-nav-item flex items-center gap-2 p-1.5 hover:bg-[var(--border-color)] text-pink-400 font-bold transition-colors cursor-pointer border border-dashed border-[var(--border-color)] mt-1"
-        >
-          <span>📻</span> radio.sh (Lo-Fi Radio)
-        </button>
+
       </nav>
-
-      <!-- Spotify Activity Widget -->
-      <SpotifyWidget />
-
-      <!-- Games Activity Widget -->
-      <GamesWidget />
 
       <!-- Quick Metrics -->
       <div
@@ -93,33 +68,43 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
       >
         <div
           class="text-[var(--fg-dim)] font-bold uppercase tracking-wider text-[10px]"
+          id="gui-content-spec"
         >
           CONTENT SPEC
         </div>
-        <div class="flex justify-between text-[var(--fg-main)]">
+    <!--<div class="flex justify-between text-[var(--fg-main)]">
           <span>Active Collabs:</span>
           <span class="font-bold text-[var(--fg-bright)]">{collabs.length}</span
           >
-        </div>
+</div>-->
         <div class="flex justify-between text-[var(--fg-main)]">
-          <span>Skill Domains:</span>
+          <span id="gui-skill-domains">Skill Domains:</span>
           <span class="font-bold text-yellow-400">{skills.length}</span>
         </div>
         <div class="flex justify-between text-[var(--fg-main)]">
-          <span>Experience:</span>
-          <span class="font-bold text-emerald-400">7+ Years</span>
+          <span id="gui-experience">Experience:</span>
+          <span class="font-bold text-emerald-400" id="gui-experience-value">7+ Years</span>
         </div>
       </div>
 
       <!-- Quick GitHub Link -->
-      <div class="pt-2">
+      <div class="pt-2 space-y-2">
         <a
           href={developer.github}
           target="_blank"
           rel="noopener noreferrer"
           class="w-full text-center block px-3 py-1.5 border border-[var(--border-color)] bg-[var(--bg-main)] hover:border-[var(--border-active)] text-[var(--fg-bright)] text-xs font-bold transition-colors"
+          id="gui-visit-github"
         >
           GitHub Profile ↗
+        </a>
+        <a
+          href="/gabriel-stundner-cv.pdf"
+          download="GABRIEL_STUNDNER-CV.pdf"
+          class="w-full text-center block px-3 py-1.5 border border-[var(--border-color)] bg-[var(--bg-main)] hover:border-[var(--border-active)] text-[var(--fg-bright)] text-xs font-bold transition-colors"
+          id="gui-download-cv"
+        >
+          Baixar currículo atualizado ↗
         </a>
       </div>
     </aside>
@@ -136,19 +121,20 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
         >
           <h2
             class="text-xs sm:text-base font-bold text-[var(--fg-bright)] flex items-center gap-1.5 sm:gap-2 truncate"
+            id="gui-about-title"
           >
             <span class="text-[var(--accent)]">></span> CAT BIO.TXT // ABOUT ME
           </h2>
           <span class="text-[10px] sm:text-xs text-[var(--fg-dim)] shrink-0">[READ-ONLY]</span>
         </div>
 
-        <p class="text-[var(--fg-main)] leading-relaxed text-xs sm:text-sm">
+        <p class="text-[var(--fg-main)] leading-relaxed text-xs sm:text-sm" id="gui-bio-text">
           {developer.bio}
         </p>
 
         {
           developer.quote && (
-            <blockquote class="p-3 border-l-2 border-[var(--accent)] bg-[var(--bg-main)] text-[var(--fg-dim)] italic text-xs leading-relaxed">
+            <blockquote class="p-3 border-l-2 border-[var(--accent)] bg-[var(--bg-main)] text-[var(--fg-dim)] italic text-xs leading-relaxed" id="gui-quote-text">
               {developer.quote}
             </blockquote>
           )
@@ -159,9 +145,10 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
             class="p-3 border border-[var(--border-color)] bg-[var(--bg-main)] space-y-1"
           >
             <span class="text-[10px] text-[var(--fg-dim)] uppercase font-bold"
+              id="gui-engineering-focus"
               >ENGINEERING FOCUS</span
             >
-            <div class="text-xs text-[var(--accent)] font-bold">
+            <div class="text-xs text-[var(--accent)] font-bold" id="gui-focus-areas">
               Systems Architecture, Edge Systems & Web Performance
             </div>
           </div>
@@ -178,7 +165,70 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
         </div>
       </section>
 
-      <!-- Section 2: Skills -->
+      <!-- Section 2: Live GitHub Stats & Repositories -->
+      <section
+        id="gui-github"
+        class="border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-5 space-y-4"
+      >
+        <div
+          class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 border-b border-[var(--border-color)] pb-3"
+        >
+          <h2
+            class="text-xs sm:text-base font-bold text-[var(--fg-bright)] flex items-center gap-1.5 sm:gap-2 truncate"
+            id="gui-github-title"
+          >
+            <span class="text-[var(--accent)]">></span> CAT GITHUB.SH // REPOSITORIES & METRICS
+          </h2>
+          <span class="text-[10px] sm:text-xs text-emerald-400 font-bold flex items-center gap-1.5 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            LIVE REST API
+          </span>
+        </div>
+
+        <div id="gui-gh-loading" class="text-xs text-[var(--fg-dim)] py-2 font-mono" id="gui-github-loading">
+          Connecting to GitHub API & caching statistics...
+        </div>
+
+        <div id="gui-gh-content" class="hidden space-y-4 font-mono">
+          <!-- Metric Counter Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+            <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-2 sm:p-3 text-center">
+              <div class="text-[9px] sm:text-[10px] text-[var(--fg-dim)] font-bold truncate" id="gui-gh-stars-label">TOTAL STARS ⭐</div>
+              <div id="gui-gh-stars" class="text-base sm:text-xl font-bold text-yellow-400 mt-0.5 sm:mt-1">0</div>
+            </div>
+            <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-2 sm:p-3 text-center">
+              <div class="text-[9px] sm:text-[10px] text-[var(--fg-dim)] font-bold truncate" id="gui-gh-forks-label">TOTAL FORKS 🍴</div>
+              <div id="gui-gh-forks" class="text-base sm:text-xl font-bold text-emerald-400 mt-0.5 sm:mt-1">0</div>
+            </div>
+            <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-2 sm:p-3 text-center">
+              <div class="text-[9px] sm:text-[10px] text-[var(--fg-dim)] font-bold truncate" id="gui-gh-followers-label">FOLLOWERS 👥</div>
+              <div id="gui-gh-followers" class="text-base sm:text-xl font-bold text-sky-400 mt-0.5 sm:mt-1">0</div>
+            </div>
+            <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-2 sm:p-3 text-center">
+              <div class="text-[9px] sm:text-[10px] text-[var(--fg-dim)] font-bold truncate" id="gui-gh-repos-label">PUBLIC REPOS 📦</div>
+              <div id="gui-gh-repos" class="text-base sm:text-xl font-bold text-purple-400 mt-0.5 sm:mt-1">0</div>
+            </div>
+          </div>
+
+          <!-- Language Breakdown -->
+          <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-3 space-y-2">
+            <div class="text-[10px] text-[var(--fg-dim)] font-bold uppercase tracking-wider" id="gui-gh-languages-label">
+              Primary Programming Languages
+            </div>
+            <div id="gui-gh-lang-list" class="flex flex-wrap gap-2 text-xs"></div>
+          </div>
+
+          <!-- Featured Repositories -->
+          <div class="space-y-2">
+            <div class="text-[10px] text-[var(--fg-dim)] font-bold uppercase tracking-wider" id="gui-gh-repos-label">
+              Featured Repositories
+            </div>
+            <div id="gui-gh-repos-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Skills -->
       <section
         id="gui-skills"
         class="border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-5 space-y-4"
@@ -188,6 +238,7 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
         >
           <h2
             class="text-xs sm:text-base font-bold text-[var(--fg-bright)] flex items-center gap-1.5 sm:gap-2 truncate"
+            id="gui-skills-title"
           >
             <span class="text-[var(--accent)]">></span> ./SKILLS.SH // TECHNICAL PROFICIENCY
           </h2>
@@ -243,7 +294,7 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
         </div>
       </section>
 
-      <!-- Section 3: Collabs (Collaborations) -->
+      <!-- Section 3: Collabs (Collaborations) - commented out - not currently used
       <section
         id="gui-collabs"
         class="border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-5 space-y-4"
@@ -270,7 +321,7 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
                   <span class="text-[10px] px-2 py-0.5 border border-[var(--border-color)] text-[var(--accent)] uppercase font-bold">
                     {item.partnerType}
                   </span>
-                </div>
+              </div>
 
                 {item.asciiLogo && (
                   <pre class="my-2 p-2.5 bg-[var(--bg-card)] text-[10px] sm:text-xs text-[var(--fg-bright)] overflow-x-auto leading-tight select-none border border-[var(--border-color)] font-mono whitespace-pre">{item.asciiLogo}</pre>
@@ -330,70 +381,9 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
           }
         </div>
       </section>
+      -->
 
-      <!-- Section 4: Live GitHub Stats & Repositories -->
-      <section
-        id="gui-github"
-        class="border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-5 space-y-4"
-      >
-        <div
-          class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 border-b border-[var(--border-color)] pb-3"
-        >
-          <h2
-            class="text-xs sm:text-base font-bold text-[var(--fg-bright)] flex items-center gap-1.5 sm:gap-2 truncate"
-          >
-            <span class="text-[var(--accent)]">></span> CAT GITHUB.SH // REPOSITORIES & METRICS
-          </h2>
-          <span class="text-[10px] sm:text-xs text-emerald-400 font-bold flex items-center gap-1.5 shrink-0">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            LIVE REST API
-          </span>
-        </div>
-
-        <div id="gui-gh-loading" class="text-xs text-[var(--fg-dim)] py-2 font-mono">
-          Connecting to GitHub API & caching statistics...
-        </div>
-
-        <div id="gui-gh-content" class="hidden space-y-4 font-mono">
-          <!-- Metric Counter Cards -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-            <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-2 sm:p-3 text-center">
-              <div class="text-[9px] sm:text-[10px] text-[var(--fg-dim)] font-bold truncate">TOTAL STARS ⭐</div>
-              <div id="gui-gh-stars" class="text-base sm:text-xl font-bold text-yellow-400 mt-0.5 sm:mt-1">0</div>
-            </div>
-            <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-2 sm:p-3 text-center">
-              <div class="text-[9px] sm:text-[10px] text-[var(--fg-dim)] font-bold truncate">TOTAL FORKS 🍴</div>
-              <div id="gui-gh-forks" class="text-base sm:text-xl font-bold text-cyan-400 mt-0.5 sm:mt-1">0</div>
-            </div>
-            <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-2 sm:p-3 text-center">
-              <div class="text-[9px] sm:text-[10px] text-[var(--fg-dim)] font-bold truncate">PUBLIC REPOS 📦</div>
-              <div id="gui-gh-repos" class="text-base sm:text-xl font-bold text-emerald-400 mt-0.5 sm:mt-1">0</div>
-            </div>
-            <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-2 sm:p-3 text-center">
-              <div class="text-[9px] sm:text-[10px] text-[var(--fg-dim)] font-bold truncate">FOLLOWERS 👥</div>
-              <div id="gui-gh-followers" class="text-base sm:text-xl font-bold text-purple-400 mt-0.5 sm:mt-1">0</div>
-            </div>
-          </div>
-
-          <!-- Top Languages Bar -->
-          <div class="border border-[var(--border-color)] bg-[var(--bg-main)] p-3 space-y-2">
-            <div class="text-[10px] text-[var(--fg-dim)] font-bold uppercase tracking-wider">
-              Primary Programming Languages
-            </div>
-            <div id="gui-gh-lang-list" class="flex flex-wrap gap-2 text-xs"></div>
-          </div>
-
-          <!-- Top Repositories Grid -->
-          <div class="space-y-2">
-            <div class="text-[10px] text-[var(--fg-dim)] font-bold uppercase tracking-wider">
-              Featured Repositories
-            </div>
-            <div id="gui-gh-repos-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 5: Contact -->
+      <!-- Section 4: Contact -->
       <section
         id="gui-contact"
         class="border border-[var(--border-color)] bg-[var(--bg-card)] p-4 sm:p-5 space-y-4"
@@ -403,6 +393,7 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
         >
           <h2
             class="text-xs sm:text-base font-bold text-[var(--fg-bright)] flex items-center gap-1.5 sm:gap-2 truncate"
+            id="gui-contact-title"
           >
             <span class="text-[var(--accent)]">></span> TRANSMIT MAIL // CONTACT
           </h2>
@@ -419,6 +410,7 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
               <label
                 for="contact-name"
                 class="text-xs text-[var(--fg-bright)] font-bold block"
+                id="gui-contact-name-label"
                 >NAME:</label
               >
               <input
@@ -434,6 +426,7 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
               <label
                 for="contact-email"
                 class="text-xs text-[var(--fg-bright)] font-bold block"
+                id="gui-contact-email-label"
                 >EMAIL:</label
               >
               <input
@@ -451,6 +444,7 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
             <label
               for="contact-message"
               class="text-xs text-[var(--fg-bright)] font-bold block"
+              id="gui-contact-message-label"
               >MESSAGE / COLLAB PROPOSAL:</label
             >
             <textarea
@@ -470,9 +464,9 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
             <button
               id="contact-submit-btn"
               type="submit"
-              class="px-5 py-2 border border-[var(--border-active)] bg-[var(--border-color)] hover:bg-[var(--border-active)] text-[var(--fg-bright)] font-bold text-xs cursor-pointer transition-colors ml-auto"
+              class="px-4 py-2 bg-[var(--accent)] text-[var(--bg-main)] font-bold text-xs border border-[var(--accent)] hover:bg-[var(--accent-secondary)] transition-colors shrink-0"
             >
-              <span id="btn-text">SEND PAYLOAD [ENTER]</span>
+              <span id="gui-contact-submit">SEND MESSAGE</span>
             </button>
           </div>
         </form>
@@ -483,11 +477,103 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
 
 <script>
   import confetti from "canvas-confetti";
-  import { playSuccessSound } from "../utils/sound";
   import { PORTFOLIO_DATA } from "../data/portfolio";
   import { fetchGitHubStats } from "../utils/github";
+  import { getCurrentLanguage, getTranslations, type Language } from "../i18n";
 
   document.addEventListener("DOMContentLoaded", () => {
+    // Language update function
+    function updateGUITranslations(lang: Language) {
+      const t = getTranslations(lang);
+      
+      // Update developer bio and quote
+      const bioText = document.getElementById("gui-bio-text");
+      const quoteText = document.getElementById("gui-quote-text");
+      
+      if (bioText) bioText.textContent = t.developer.bio;
+      if (quoteText) quoteText.textContent = t.developer.quote;
+      
+      // Update sidebar navigation
+      const explorer = document.getElementById("gui-explorer");
+      const contents = document.getElementById("gui-contents");
+      const navAbout = document.getElementById("gui-nav-about");
+      const navSkills = document.getElementById("gui-nav-skills");
+      const navGithub = document.getElementById("gui-nav-github");
+      const navContact = document.getElementById("gui-nav-contact");
+      
+      if (explorer) explorer.textContent = t.gui.explorer;
+      if (contents) contents.textContent = t.gui.contents;
+      if (navAbout) navAbout.textContent = t.gui.nav.about;
+      if (navSkills) navSkills.textContent = t.gui.nav.skills;
+      if (navGithub) navGithub.textContent = t.gui.nav.github;
+      if (navContact) navContact.textContent = t.gui.nav.contact;
+      
+      // Update metrics section
+      const contentSpec = document.getElementById("gui-content-spec");
+      const skillDomains = document.getElementById("gui-skill-domains");
+      const experience = document.getElementById("gui-experience");
+      const experienceValue = document.getElementById("gui-experience-value");
+      const visitGithub = document.getElementById("gui-visit-github");
+      const downloadCv = document.getElementById("gui-download-cv");
+      const engineeringFocus = document.getElementById("gui-engineering-focus");
+      const focusAreas = document.getElementById("gui-focus-areas");
+      
+      if (contentSpec) contentSpec.textContent = t.gui.contentSpec;
+      if (skillDomains) skillDomains.textContent = t.gui.skillDomains;
+      if (experience) experience.textContent = t.gui.experience;
+      if (experienceValue) experienceValue.textContent = t.developer.experience;
+      if (visitGithub) visitGithub.textContent = t.gui.visitGithub;
+      if (downloadCv) downloadCv.textContent = t.gui.downloadCv;
+      if (engineeringFocus) engineeringFocus.textContent = t.developer.engineeringFocus;
+      if (focusAreas) focusAreas.textContent = t.developer.focusAreas;
+      
+      // Update section titles
+      const aboutTitle = document.getElementById("gui-about-title");
+      const skillsTitle = document.getElementById("gui-skills-title");
+      const githubTitle = document.getElementById("gui-github-title");
+      const contactTitle = document.getElementById("gui-contact-title");
+      
+      if (aboutTitle) aboutTitle.textContent = t.gui.aboutSection.title;
+      if (skillsTitle) skillsTitle.textContent = t.gui.skillsSection.title;
+      if (githubTitle) githubTitle.textContent = t.gui.githubSection.title;
+      if (contactTitle) contactTitle.textContent = t.gui.contactSection.title;
+      
+      // Update GitHub section labels
+      const ghLoading = document.getElementById("gui-github-loading");
+      const ghStarsLabel = document.getElementById("gui-gh-stars-label");
+      const ghForksLabel = document.getElementById("gui-gh-forks-label");
+      const ghReposLabel = document.getElementById("gui-gh-repos-label");
+      const ghFollowersLabel = document.getElementById("gui-gh-followers-label");
+      const ghLanguagesLabel = document.getElementById("gui-gh-languages-label");
+      
+      if (ghLoading) ghLoading.textContent = t.gui.githubSection.loading;
+      if (ghStarsLabel) ghStarsLabel.textContent = t.gui.githubSection.totalStars;
+      if (ghForksLabel) ghForksLabel.textContent = t.gui.githubSection.totalForks;
+      if (ghReposLabel) ghReposLabel.textContent = t.gui.githubSection.publicRepos;
+      if (ghFollowersLabel) ghFollowersLabel.textContent = t.gui.githubSection.followers;
+      if (ghLanguagesLabel) ghLanguagesLabel.textContent = t.gui.githubSection.topLanguages;
+      
+      // Update contact form labels
+      const contactNameLabel = document.getElementById("gui-contact-name-label");
+      const contactEmailLabel = document.getElementById("gui-contact-email-label");
+      const contactMessageLabel = document.getElementById("gui-contact-message-label");
+      const contactSubmit = document.getElementById("gui-contact-submit");
+      
+      if (contactNameLabel) contactNameLabel.textContent = t.gui.contactSection.name;
+      if (contactEmailLabel) contactEmailLabel.textContent = t.gui.contactSection.email;
+      if (contactMessageLabel) contactMessageLabel.textContent = t.gui.contactSection.message;
+      if (contactSubmit) contactSubmit.textContent = t.gui.contactSection.send;
+    }
+    
+    // Listen for language changes
+    window.addEventListener('languageChange', (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      updateGUITranslations(detail.lang);
+    });
+    
+    // Initialize with current language
+    updateGUITranslations(getCurrentLanguage());
+
     const form = document.getElementById("contact-form") as HTMLFormElement;
     const statusMsg = document.getElementById("form-status");
     const submitBtn = document.getElementById(
@@ -606,8 +692,6 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
         );
 
         if (response.ok) {
-          playSuccessSound();
-
           confetti({
             particleCount: 80,
             spread: 60,
@@ -657,28 +741,5 @@ const { developer, skills, collabs } = PORTFOLIO_DATA;
       }, { passive: false });
     };
 
-    bindLaunchBtn("gui-launch-pong", () => {
-      const win = window as unknown as { togglePong?: (f?: boolean) => void };
-      if (win.togglePong) {
-        win.togglePong(true);
-        playSuccessSound();
-      }
-    });
-
-    bindLaunchBtn("gui-launch-snake", () => {
-      const win = window as unknown as { toggleSnake?: (f?: boolean) => void };
-      if (win.toggleSnake) {
-        win.toggleSnake(true);
-        playSuccessSound();
-      }
-    });
-
-    bindLaunchBtn("gui-launch-radio", () => {
-      const win = window as unknown as { radioEngine?: { toggleModal: (f?: boolean) => void } };
-      if (win.radioEngine) {
-        win.radioEngine.toggleModal(true);
-        playSuccessSound();
-      }
-    });
   });
 </script>
